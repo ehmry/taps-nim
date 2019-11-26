@@ -1,0 +1,22 @@
+# SPDX-License-Identifier: MIT
+
+import
+  std / asyncdispatch, std / options, taps
+
+proc main() =
+  var ep = newRemoteEndpoint()
+  ep.withHostname "localhost"
+  ep.with Port(6666)
+  var tp = newTransportProperties()
+  tp.prohibit("reliability")
+  tp.ignore("congestion-control")
+  tp.ignore("preserve-order")
+  var preconn = newPreconnection(remote = some ep, transport = some tp)
+  let conn = preconn.initiate()
+  conn.onReadydo :
+    conn.send("Hello\n")
+  conn.onSentdo (ctx: MessageContext):
+    quit()
+  runForever()
+
+main()
