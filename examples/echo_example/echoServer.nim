@@ -5,11 +5,11 @@ import
 
 proc connectionHandler(conn: Connection) =
   echo "Received new Connection."
-  conn.onReceivedPartialdo (data: string; ctx: MessageContext; eom: bool):
+  conn.onReceivedPartialdo (data: seq[byte]; ctx: MessageContext; eom: bool):
     echo "Received message ", data, "."
     conn.receive(min_incomplete_length = 1.some, max_length = 5.some)
     conn.send(data)
-  conn.onReceiveddo (data: string; ctx: MessageContext):
+  conn.onReceiveddo (data: seq[byte]; ctx: MessageContext):
     echo "Received message ", data, "."
     conn.receive(min_incomplete_length = 1.some, max_length = 5.some)
     conn.send(data)

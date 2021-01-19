@@ -17,7 +17,7 @@ proc main() =
   listener.onConnectionReceiveddo (conn: Connection):
     conn.onReadydo :
       echo "connection ready"
-    conn.onReceiveddo (data: string; ctx: MessageContext):
+    conn.onReceiveddo (data: seq[byte]; ctx: MessageContext):
       echo data
       conn.receive()
     conn.receive()
