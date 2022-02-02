@@ -3,7 +3,7 @@
 version       = "0.2.2"
 author        = "Emery Hemingway"
 description   = "Transport Services Interface"
-license       = "BSD-3-Clause"
+license       = "ISC"
 srcDir        = "src"
 
 
