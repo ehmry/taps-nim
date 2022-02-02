@@ -1,0 +1,4 @@
+include_rules
+
+: |> !nim.cfg |> coap_example.nim.cfg {cfg}
+: coap_example.nim | {cfg} ../lwip/<lib> |> !nim |> coap_example.@(SOLO5_TENDER)

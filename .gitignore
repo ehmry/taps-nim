@@ -1,2 +1,5 @@
+/.tup
+/build-*
 /examples/minimal_example/minimalClient
 /examples/minimal_example/minimalServer
+result

@@ -1,0 +1,28 @@
+include_rules
+
+CFLAGS += -DIPV6_FRAG_COPYHEADER=1
+CFLAGS += -I$(LWIPDIR)/include -I$(TUP_CWD)/include
+
+CFLAGS += `pkg-config --cflags solo5-bindings-@(SOLO5_TENDER)`
+
+!cc = |> ^o CC %f^ $(CC) $(CFLAGS) -c %f -o %o |> %B.o
+
+!ar = |> ^o AR %o^ $(AR) rs %o %f |>
+
+include $(LWIPDIR)/Filelists.mk
+
+: include/lwipopts.h.in |> tup varsed %f %o |> $(LWIPDIR)/include/lwipopts.h {headers}
+
+: foreach *.c $(COREFILES) $(APIFILES) | {headers} |> !cc |> %B.o {objs}
+
+ifeq (@(LWIP_IPV4),1)
+: foreach $(CORE4FILES) | {headers} |> !cc |> %B.o {objs}
+endif
+
+ifeq (@(LWIP_IPV6),1)
+: foreach $(CORE6FILES) | {headers} |> !cc |> %B.o {objs}
+endif
+
+: foreach $(NETIFFILES) | {headers} |> !cc |> %B.o {objs}
+
+: {objs} |> !ar |> $(LWIPLIB) <lib>
