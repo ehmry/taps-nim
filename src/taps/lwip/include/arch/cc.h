@@ -38,9 +38,7 @@ static void printf(const char *fmt, ...)
 
 #define LWIP_PLATFORM_DIAG(x) do {printf x;} while(0)
 
-#define LWIP_PLATFORM_ASSERT(x) do { \
-	printf("%s:%d: Assertion \"%s\" failed, \n", __FILE__, __LINE__, x); \
-	solo5_abort(); } while(0)
+#define LWIP_PLATFORM_ASSERT(x) do { nim_raise_assert(x, __FILE__, __LINE__); } while(0)
 
 #define LWIP_NO_INTTYPES_H 1
 #define LWIP_NO_LIMITS_H 1
