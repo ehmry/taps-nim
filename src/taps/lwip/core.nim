@@ -1,0 +1,35 @@
+# SPDX-License-Identifier: MIT
+
+{.compile: "printf.c".}
+{.compile: "string.c".}
+{.compile: "sys_solo5.c".}
+{.compile: "./upstream/src/core/init.c".}
+{.compile: "./upstream/src/core/def.c".}
+{.compile: "./upstream/src/core/dns.c".}
+{.compile: "./upstream/src/core/inet_chksum.c".}
+{.compile: "./upstream/src/core/ip.c".}
+{.compile: "./upstream/src/core/mem.c".}
+{.compile: "./upstream/src/core/memp.c".}
+{.compile: "./upstream/src/core/netif.c".}
+{.compile: "./upstream/src/core/pbuf.c".}
+{.compile: "./upstream/src/core/raw.c".}
+{.compile: "./upstream/src/core/stats.c".}
+{.compile: "./upstream/src/core/sys.c".}
+{.compile: "./upstream/src/core/altcp.c".}
+{.compile: "./upstream/src/core/altcp_alloc.c".}
+{.compile: "./upstream/src/core/altcp_tcp.c".}
+{.compile: "./upstream/src/core/tcp.c".}
+{.compile: "./upstream/src/core/tcp_in.c".}
+{.compile: "./upstream/src/core/tcp_out.c".}
+{.compile: "./upstream/src/core/timeouts.c".}
+{.compile: "./upstream/src/core/udp.c".}
+{.compile: "./upstream/src/api/api_lib.c".}
+{.compile: "./upstream/src/api/api_msg.c".}
+{.compile: "./upstream/src/api/err.c".}
+{.compile: "./upstream/src/api/if_api.c".}
+{.compile: "./upstream/src/api/netbuf.c".}
+{.compile: "./upstream/src/api/netdb.c".}
+{.compile: "./upstream/src/api/netifapi.c".}
+{.compile: "./upstream/src/api/sockets.c".}
+{.compile: "./upstream/src/api/tcpip.c".}
+{.compile: "./upstream/src/netif/ethernet.c".}
