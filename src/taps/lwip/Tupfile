@@ -8,6 +8,6 @@ LWIPDIR = $(TUP_CWD)/upstream/src
 include $(LWIPDIR)/Filelists.mk
 
 : *.c $(COREFILES) $(APIFILES) $(LWIPDIR)/netif/ethernet.c \
-	|> !dumpNimCompilePragmas |> core.nim
-: $(CORE4FILES) |> !dumpNimCompilePragmas |> core4.nim
-: $(CORE6FILES) |> !dumpNimCompilePragmas |> core6.nim
+	|> !dumpNimCompilePragmas |> core.nim ../../../<sources>
+: $(CORE4FILES) |> !dumpNimCompilePragmas |> core4.nim ../../../<sources>
+: $(CORE6FILES) |> !dumpNimCompilePragmas |> core6.nim ../../../<sources>
