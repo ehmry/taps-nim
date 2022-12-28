@@ -12,7 +12,7 @@ proc main() =
   tp.ignore("congestion-control")
   tp.ignore("preserver-order")
   var
-    preconn = newPreconnection(local = some(lp), transport = some(tp))
+    preconn = newPreconnection(local = [lp], transport = some(tp))
     listener = preconn.listen()
   listener.onConnectionReceiveddo (conn: Connection):
     conn.onReadydo :

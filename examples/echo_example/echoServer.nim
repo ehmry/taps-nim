@@ -26,7 +26,7 @@ proc main(reliable: Reliability) =
   var tp = newTransportProperties()
   tp.ignore "congestion-control"
   tp.ignore "preserve-order"
-  let preconn = newPreconnection(local = lp.some, transport = tp.some)
+  let preconn = newPreconnection(local = [lp], transport = tp.some)
   var listener = preconn.listen()
   listener.onListenErrordo (err: ref Exception):
     echo "Listen Error occcured, ", err.msg, "."

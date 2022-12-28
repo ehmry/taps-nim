@@ -12,7 +12,7 @@ proc main() =
   tp.require "reliability"
   tp.ignore "congestion-control"
   tp.ignore "preserve-order"
-  var preconn = newPreconnection(remote = ep.some, local = lp.some,
+  var preconn = newPreconnection(remote = [ep], local = [lp],
                                  transport = tp.some)
   let conn = preconn.initiate()
   conn.onInitiateErrordo (err: ref Exception):
