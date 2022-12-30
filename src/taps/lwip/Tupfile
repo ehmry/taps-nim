@@ -2,7 +2,7 @@
 ## to compile the LwIP sources.
 ## This output should be checked into Git.
 
-!dumpNimCompilePragmas = |> for f in %f; do echo "{.compile: \"$f\".}" >> %o; done |>
+!dumpNimCompilePragmas = |> ^o^ for f in %f; do echo "{.compile: \"$f\".}" >> %o; done |>
 
 LWIPDIR = $(TUP_CWD)/upstream/src
 include $(LWIPDIR)/Filelists.mk
