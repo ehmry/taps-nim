@@ -1,2 +1,1 @@
-SOURCES_GROUP = $(TUP_CWD)/<sources>
 NIM_FLAGS += --path:$(TUP_CWD)/../getdns/src
