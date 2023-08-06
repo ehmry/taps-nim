@@ -1,6 +1,6 @@
 # Package
 
-version = "20230412"
+version = "20230806"
 author        = "Emery Hemingway"
 description   = "Transport Services Interface"
 license       = "ISC"
@@ -10,4 +10,4 @@ srcDir        = "src"
 
 # Dependencies
 
-requires "nim >= 1.0.2", "getdns >= 20220928"
+requires "nim >= 2.0.0", "getdns >= 20220928"
