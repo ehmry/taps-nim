@@ -3,7 +3,7 @@
 version = "20230806"
 author        = "Emery Hemingway"
 description   = "Transport Services Interface"
-license       = "ISC"
+license       = "Unlicense"
 srcDir        = "src"
 
 
