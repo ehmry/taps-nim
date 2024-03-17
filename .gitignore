@@ -1,7 +1,3 @@
-*.html
-/.tup
 /.direnv
-minimalClient
-minimalServer
-coap_example
-result
+/.tup
+/nim.cfg

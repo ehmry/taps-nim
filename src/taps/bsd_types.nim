@@ -1,10 +1,7 @@
 # SPDX-License-Identifier: MIT
 
 import
-  std / asyncnet, std / nativesockets
-
-import
-  getdns
+  std / nativesockets
 
 type
   ListenerPlatform = object

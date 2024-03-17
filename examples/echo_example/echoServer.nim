@@ -1,7 +1,13 @@
 # SPDX-License-Identifier: MIT
 
 import
-  std / asyncdispatch, std / options, taps
+  std / options
+
+import
+  pkg / sys / ioqueue
+
+import
+  taps
 
 proc `$`(b: seq[byte]): string =
   cast[string](b)
@@ -29,6 +35,7 @@ proc main(reliable: Reliability) =
   var lp = newLocalEndpoint()
   lp.with Port(1024)
   var tp = newTransportProperties()
+  tp.require "reliability"
   tp.ignore "congestion-control"
   tp.ignore "preserve-order"
   let preconn = newPreconnection(local = [lp], transport = tp.some)
@@ -37,6 +44,6 @@ proc main(reliable: Reliability) =
     echo "Listen Error occcured, ", err.msg, "."
     quit -1
   listener.onConnectionReceived(connectionHandler)
-  runForever()
+  ioqueue.run()
 
 main(notReliable)

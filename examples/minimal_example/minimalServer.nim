@@ -1,7 +1,13 @@
 # SPDX-License-Identifier: MIT
 
 import
-  std / asyncdispatch, std / options, taps
+  std / options
+
+import
+  pkg / sys / ioqueue
+
+import
+  taps
 
 proc `$`(b: seq[byte]): string =
   cast[string](b)
@@ -24,6 +30,6 @@ proc main() =
       echo data
       conn.receive()
     conn.receive()
-  runForever()
+  ioqueue.run()
 
 main()

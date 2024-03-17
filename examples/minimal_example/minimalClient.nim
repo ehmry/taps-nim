@@ -1,7 +1,13 @@
 # SPDX-License-Identifier: MIT
 
 import
-  std / asyncdispatch, std / options, taps
+  std / options
+
+import
+  pkg / sys / ioqueue
+
+import
+  taps
 
 proc main() =
   var ep = newRemoteEndpoint()
@@ -17,6 +23,6 @@ proc main() =
     conn.send("Hello\n")
   conn.onSentdo (ctx: MessageContext):
     quit()
-  runForever()
+  ioqueue.run()
 
 main()
