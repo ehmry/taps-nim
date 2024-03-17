@@ -1,1 +1,6 @@
-let pkgs = import <nixpkgs> { }; in pkgs.nim2Packages.taps
+let pkgs = import <nixpkgs> { };
+in pkgs.buildNimPackage {
+  name = "dummy";
+  buildInputs = [ pkgs.getdns ];
+  nativeBuildInputs = [ pkgs.pkg-config ];
+}
