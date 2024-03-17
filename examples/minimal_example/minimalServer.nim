@@ -3,6 +3,9 @@
 import
   std / asyncdispatch, std / options, taps
 
+proc `$`(b: seq[byte]): string =
+  cast[string](b)
+
 proc main() =
   var lp = newLocalEndpoint()
   lp.withHostname "localhost"
@@ -10,7 +13,7 @@ proc main() =
   var tp = newTransportProperties()
   tp.prohibit("reliability")
   tp.ignore("congestion-control")
-  tp.ignore("preserver-order")
+  tp.ignore("preserve-order")
   var
     preconn = newPreconnection(local = [lp], transport = some(tp))
     listener = preconn.listen()

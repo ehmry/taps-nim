@@ -3,6 +3,9 @@
 import
   std / asyncdispatch, std / options, taps
 
+proc `$`(b: seq[byte]): string =
+  cast[string](b)
+
 proc connectionHandler(conn: Connection) =
   echo "Received new Connection."
   conn.onReceivedPartialdo (data: seq[byte]; ctx: MessageContext; eom: bool):
@@ -15,6 +18,8 @@ proc connectionHandler(conn: Connection) =
     conn.send(data)
   conn.onSentdo (ctx: MessageContext):
     echo "Sent cb received, message ", ctx, " has been sent."
+  conn.onReceiveErrordo (ctx: MessageContext; reason: ref Exception):
+    echo "connection error: ", reason.msg
   conn.receive(min_incomplete_length = 1, max_length = 3)
 
 type
