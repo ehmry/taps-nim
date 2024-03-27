@@ -29,6 +29,7 @@
 #define LWIP_TCPIP_CORE_LOCKING_INPUT 0
 #define LWIP_UDP 1
 #define LWIP_UDPLITE 0
+#define MEM_LIBC_MALLOC 1
 #define NETIF_DEBUG LWIP_DBG_OFF
 #define NO_SYS 1
 #define SYS_DEBUG LWIP_DBG_OFF
@@ -36,3 +37,12 @@
 #define TCP_DEBUG LWIP_DBG_OFF
 #define TIMERS_DEBUG LWIP_DBG_OFF
 #define UDP_DEBUG LWIP_DBG_OFF
+
+#include<stddef.h>
+void nim_clib_free(void *rmem);
+void *nim_clib_malloc(size_t size);
+void *nim_clib_calloc(size_t count, size_t size);
+
+#define mem_clib_free nim_clib_free
+#define mem_clib_malloc nim_clib_malloc
+#define mem_clib_calloc nim_clib_calloc
