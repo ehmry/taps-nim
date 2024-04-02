@@ -1,1 +1,0 @@
-NIM_FLAGS += --path:$(TUP_CWD)/../getdns/src
