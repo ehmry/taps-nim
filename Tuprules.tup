@@ -1,3 +1,5 @@
 NIM = $(DIRENV) $(NIM)
 NIM_GROUPS += $(TUP_CWD)/<lock>
+NIM_FLAGS += --path:$(TUP_CWD)/../cps
 NIM_FLAGS += --path:$(TUP_CWD)/../getdns/src
+NIM_FLAGS += --path:$(TUP_CWD)/../solo5_dispatcher/pkg

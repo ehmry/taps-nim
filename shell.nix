@@ -1,6 +1,6 @@
 let pkgs = import <nixpkgs> { };
 in pkgs.buildNimPackage {
   name = "dummy";
-  buildInputs = [ pkgs.getdns ];
-  nativeBuildInputs = [ pkgs.pkg-config ];
+  buildInputs = builtins.attrValues { inherit (pkgs) getdns solo5; };
+  nativeBuildInputs = builtins.attrValues { inherit (pkgs) pkg-config solo5; };
 }

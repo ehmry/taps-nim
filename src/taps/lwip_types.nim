@@ -2,7 +2,7 @@
 
 when defined(solo5):
   import
-    solo5 / devices
+    solo5
 
 type
   Pbuf {.importc: "struct pbuf", header: "lwip/pbuf.h".} = ptr object

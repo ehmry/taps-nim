@@ -1,0 +1,4 @@
+include_rules
+
+# : solo5*test.nim |> !nim_solo5_hvt |>
+: solo5*test.nim | ../<sources> |> !nim_solo5_spt |>
